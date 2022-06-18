@@ -4,7 +4,12 @@ import pokeColor from '../utils/pokeColor'
 
 function PokeList({detail, key}) {
 
-    const [pokemonImg, setPokemonImg] = React.useState('')
+    const [pokemon, setPokemon] = React.useState({
+        photo: '',
+        height: '',
+        weight: '',
+        ability: '',
+    })
     const url = detail.url
 
     React.useEffect(() => {
@@ -12,15 +17,25 @@ function PokeList({detail, key}) {
             .then((response) => response.json())
             .then((data) => {
                 console.log(data)
-                setPokemonImg(data.sprites.front_default)
+                setPokemon({
+                    photo: data.sprites.other.dream_world.front_default,
+                    // photo: data.sprites.other.home.front_default,
+                    height: data.height,
+                    weight: data.weight,
+                    ability: data.abilities[0].ability.name,
+                })
             })
     }, [])
-    console.log(pokeColor)
 
   return (
-    <Container>
+    <Container style={{background: 'coral'}}>
         <p>{detail.name}</p>
-        <img src={pokemonImg}/>
+        <img src={pokemon.photo}/>
+        <div>
+            {/* <p>Height: {pokemon.height}</p>
+            <p>Weight: {pokemon.weight}</p> */}
+            <p>Ability: {pokemon.ability}</p>
+        </div>
     </Container>
   )
 }
@@ -28,11 +43,14 @@ function PokeList({detail, key}) {
 export default PokeList
 
 const Container = styled.div`
-    
-    background: lightblue;
     padding-left: 10px;
     display: flex;
     flex-direction: column;
-    border-radius: 5px;
+    justify-content: space-between;
+    border-radius: 10px;
     cursor: pointer;
+    overflow: hidden;
+    img{
+        margin-left: 70px;
+    }
 `
