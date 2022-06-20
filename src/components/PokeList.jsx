@@ -52,8 +52,8 @@ function PokeList({ detail, key }) {
     return (
         <>
             {!expand && <Container onClick={handleClick}>
-                <h4>#{pokemon.id} {detail.name}</h4>
-                <img src={pokemon.photo} />
+                <h4>#{pokemon.id} {detail.name.charAt(0).toUpperCase()}{detail.name.slice(1)}</h4>
+                <div className='img'><img src={pokemon.photo} /></div>
                 <div>
                     <h4>Ability: <span>{pokemon.ability}</span></h4>
                 </div>
@@ -61,7 +61,7 @@ function PokeList({ detail, key }) {
 
             {expand && <BigContainer show={expand}>
                 <div className='top'>
-                    <h3>#{pokemon.id} {detail.name}</h3>
+                    <h3>#{pokemon.id} {detail.name.charAt(0).toUpperCase()}{detail.name.slice(1)}</h3>
                     <CloseIcon onClick={handleClick} />
                 </div>
                 <img src={pokemon.photo1} />
@@ -97,8 +97,13 @@ const Container = styled.div`
         box-shadow: 0 15px 15px gray;
         transition: 0.3s;
     }
+    .img{
+        display: flex;
+        justify-content: center;
+    }
     img{
-        margin-left: 70px;
+        width: 70%;
+        height: auto;
     }
     span{
         font-weight: lighter;
@@ -110,7 +115,7 @@ const BigContainer = styled.div`
     width: 730px;
     position: fixed;
     margin-left: calc(100vw / 2 - 700px / 2 - 28px);
-    background: lightgray;
+    background: white;
     padding-left: 10px;
     display: flex;
     flex-direction: column;
@@ -118,7 +123,7 @@ const BigContainer = styled.div`
     /* border-radius: 10px; */
     cursor: pointer;
     overflow: hidden;
-    box-shadow: 0 0 1000px 100px rgb(205, 197, 197);
+    box-shadow: 0 0 1000px 100px rgb(236, 231, 231);
     border: 2px solid black;
     /* transform: ${props => props.show ? 'translateX(20%)' : 'translateX(100%)'}; */
     img{
