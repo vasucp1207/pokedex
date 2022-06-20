@@ -2,12 +2,14 @@ import React from 'react'
 import styled from 'styled-components'
 import Species from './Species'
 import Encounter from './Encounter'
+import CloseIcon from '@mui/icons-material/Close';
 
 function PokeList({ detail, key }) {
 
     const [expand, setExpand] = React.useState(false)
     const [pokemon, setPokemon] = React.useState({
         photo: '',
+        photo1: '',
         height: '',
         weight: '',
         ability: '',
@@ -19,7 +21,7 @@ function PokeList({ detail, key }) {
     })
     const [pokeData, setPokeData] = React.useState()
     const url = detail.url
-
+    
     React.useEffect(() => {
         fetch(url)
             .then((response) => response.json())
@@ -27,7 +29,7 @@ function PokeList({ detail, key }) {
                 // console.log(data)
                 setPokemon({
                     photo: data.sprites.other.dream_world.front_default,
-                    // photo: data.sprites.other.home.front_default,
+                    photo1: data.sprites.other.home.front_default,
                     height: data.height,
                     weight: data.weight,
                     ability: data.abilities[0].ability.name,
@@ -50,24 +52,28 @@ function PokeList({ detail, key }) {
     return (
         <>
             {!expand && <Container onClick={handleClick}>
-                <p>#{pokemon.id} {detail.name}</p>
+                <h4>#{pokemon.id} {detail.name}</h4>
                 <img src={pokemon.photo} />
                 <div>
-                    <p>Ability: {pokemon.ability}</p>
+                    <h4>Ability: <span>{pokemon.ability}</span></h4>
                 </div>
             </Container>}
 
-            {expand && <BigContainer onClick={handleClick}>
-                <h3>#{pokemon.id} {detail.name}</h3>
-                <img src={pokemon.photo} />
+            {expand && <BigContainer show={expand}>
+                <div className='top'>
+                    <h3>#{pokemon.id} {detail.name}</h3>
+                    <CloseIcon onClick={handleClick} />
+                </div>
+                <img src={pokemon.photo1} />
+                {/* <img src={pokemon.photo1} /> */}
                 <div>
-                    <Encounter hp={pokemon.hpUrl} attack={pokemon.attackUrl} type={pokemon.types}/>
                     <Species link={pokemon.specieUrl}/>
                 </div>
                 <div className='phy'>
-                    <li>Height: {pokemon.height}</li>
-                    <li>Weight: {pokemon.weight}</li>
-                    <li>Ability: {pokemon.ability}</li>
+                    <Encounter hp={pokemon.hpUrl} attack={pokemon.attackUrl} type={pokemon.types}/>
+                    <li>Height: <span>{pokemon.height}</span></li>
+                    <li>Weight: <span>{pokemon.weight}</span></li>
+                    <li>Ability: <span>{pokemon.ability}</span></li>
                 </div>
             </BigContainer>}
         </>
@@ -86,6 +92,7 @@ const Container = styled.div`
     border-radius: 10px;
     cursor: pointer;
     overflow: hidden;
+    border: 1px solid gray;
     :hover{
         box-shadow: 0 15px 15px gray;
         transition: 0.3s;
@@ -93,25 +100,41 @@ const Container = styled.div`
     img{
         margin-left: 70px;
     }
+    span{
+        font-weight: lighter;
+    }
 `
 
 const BigContainer = styled.div`
-    height: 550px;
-    width: 900px;
+    height: 450px;
+    width: 730px;
     position: fixed;
-    margin-left: calc(100vw / 2 - 900px / 2 - 28px);
-    background: lightcoral;
+    margin-left: calc(100vw / 2 - 700px / 2 - 28px);
+    background: lightgray;
     padding-left: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     cursor: pointer;
     overflow: hidden;
     box-shadow: 0 0 1000px 100px rgb(205, 197, 197);
-    border: 1px solid black;
+    border: 2px solid black;
+    /* transform: ${props => props.show ? 'translateX(20%)' : 'translateX(100%)'}; */
     img{
-        height: 40%;
-        margin-left: 70px;
+        width: 30%;
+        height: auto;
+        margin-left: 250px;
+    }
+    li{
+        list-style: none;
+        font-weight: bold;
+    }
+    span{
+        font-weight: lighter;
+    }
+    .top{
+        display: flex;
+        justify-content: space-between;
     }
 `

@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import Generation from './Generation'
 
 function Encounter({hp, attack, type}) {
 
@@ -15,7 +14,7 @@ function Encounter({hp, attack, type}) {
         fetch(hp)
             .then((response) => response.json())
             .then((data) => {
-            //   console.log(data)
+              // console.log(data)
             })
     }, [])
 
@@ -31,7 +30,7 @@ function Encounter({hp, attack, type}) {
         fetch(type)
             .then((response) => response.json())
             .then((data) => {
-              console.log(data)
+              // console.log(data)
               setTypes([
                   data.moves[0].name,
                   data.moves[1].name,
@@ -40,7 +39,7 @@ function Encounter({hp, attack, type}) {
                   data.moves[4].name,
               ])
               setAllInfo({
-                genZ: data.generation.url
+                genZ: data.move_damage_class.url
               })
             })
     }, [])
@@ -49,8 +48,7 @@ function Encounter({hp, attack, type}) {
 
   return (
     <Container>
-        <Generation generation={gen.genZ}/>
-        <p><span>Moves:</span> {moves[0]}, {moves[1]}, {moves[2]}, {moves[3]}, {moves[4]}</p>
+        <p>Moves: <span>{moves[0]}, {moves[1]}, {moves[2]}, {moves[3]}, {moves[4]}</span></p>
     </Container>
   )
 }
@@ -60,4 +58,8 @@ export default Encounter
 const Container = styled.div`
     display: flex;
     gap: 5px;
+    margin-left: 0px;
+    p{
+      font-weight: bold;
+    }
 `

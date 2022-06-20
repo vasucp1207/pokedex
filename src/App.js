@@ -11,6 +11,7 @@ function App() {
       <Header>
         <img src={pokeball}/>
         <h1>Pokedex</h1>
+        {/* <input type='text' placeholder='Search Pokemon'/> */}
       </Header>
 
       <Routes>
@@ -24,12 +25,28 @@ function App() {
 export default App;
 
 const Header = styled.div`
+  background-color: #3f51b5;
+  height: 80px;
   display: flex;
   gap: 10px;
-  margin-left: 18px;
   align-items: center;
+  margin-bottom: 50px;
+  h1{
+    color: white;
+  }
   img{
+    margin-left: 20px;
     height: 50px;
     width: 50px;
+  }
+  input{
+    background-color: lightsteelblue;
+    width: 240px;
+    height: 40px;
+    margin-left: auto;
+    margin-right: 25px;
+    border: none;
+    border-radius: 5px;
+    text-indent: 5px;
   }
 `

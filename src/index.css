@@ -12,3 +12,9 @@ code {
     monospace;
     /* background: rgb(205, 197, 197); */
 }
+
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}

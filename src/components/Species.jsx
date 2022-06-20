@@ -6,6 +6,7 @@ function Species({link}) {
       text: '',
       text1: '',
       text2: '',
+      text3: '',
       happines: '',
     })
 
@@ -18,6 +19,7 @@ function Species({link}) {
                   text: data.flavor_text_entries[0].flavor_text,
                   text1: data.flavor_text_entries[2].flavor_text,
                   text2: data.flavor_text_entries[4].flavor_text,
+                  text3: data.flavor_text_entries[6].flavor_text,
                   happines: data.base_happiness
                 })
             })
@@ -27,7 +29,8 @@ function Species({link}) {
 
   return (
     <div>
-      <p>{species.text} {species.text1} {species.text2}</p>
+      <h4 style={{'margin-left': '310px'}}>Description</h4>
+      <p>{species.text} {species.text1} {species.text2} </p>
     </div>
   )
 }
